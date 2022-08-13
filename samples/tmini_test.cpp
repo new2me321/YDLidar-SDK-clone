@@ -247,10 +247,6 @@ int main(int argc, char *argv[]) {
   /// unit: Hz
   laser.setlidaropt(LidarPropScanFrequency, &frequency, sizeof(float));
 
-  //禁用阳光玻璃过滤
-  laser.enableGlassNoise(false);
-  laser.enableSunNoise(false);
-
   bool ret = laser.initialize();
   if (!ret) {
     fprintf(stderr, "Fail to initialize %s\n", laser.DescribeError());
@@ -270,17 +266,16 @@ int main(int argc, char *argv[]) {
   {
       if (laser.doProcessSimple(scan))
       {
-        printf("Scan received at [%lu] %u points is [%f]Hz\n",
-               scan.stamp / 1000000,
-               (unsigned int)scan.points.size(),
-               1.0 / scan.config.scan_time);
-        // for (size_t i = 0; i < scan.points.size(); ++i)
-        // {
-        //   const LaserPoint &p = scan.points.at(i);
-        //   printf("%d a %.01f r %.04f i %.0f\n", 
-        //     i, p.angle * 180.0 / M_PI, p.range, p.intensity);
-        // }
-        fflush(stdout);
+          printf("Scan received at [%lu] %u points is [%f]Hz\n",
+                 scan.stamp / 1000000,
+                 (unsigned int)scan.points.size(),
+                 1.0 / scan.config.scan_time);
+//          for (size_t i=0; i<scan.points.size(); ++i)
+//          {
+//              const LaserPoint& p = scan.points.at(i);
+//              printf("%d d %f i %f\n", i, p.range, p.intensity);
+//          }
+          fflush(stdout);
       }
       else
       {

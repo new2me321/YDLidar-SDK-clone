@@ -939,13 +939,6 @@ class YDLIDAR_API CYdLidar {
    */
   void enableGlassNoise(bool e=true);
 
-  /**
-   * @brief 获取用户版本（目前只针对三角雷达）
-   * @param[out] version 用户版本
-   * @return 成功返回true，否则返回false
-   */
-  bool getUserVersion(std::string &version);
-
  private:
   /**
    * @brief check LiDAR instance and connect to LiDAR,
@@ -1120,8 +1113,8 @@ class YDLIDAR_API CYdLidar {
   float m_MinRange;                 ///< LiDAR minimum range
   float m_ScanFrequency;            ///< LiDAR scanning frequency
 
-  bool m_SunNoise = false; //阳光噪点过滤标识
-  bool m_GlassNoise = false; //玻璃噪点过滤标识
+  bool m_SunNoise = true; //阳光噪点过滤标识
+  bool m_GlassNoise = true; //玻璃噪点过滤标识
 };	// End of class
 #endif // CYDLIDAR_H
 

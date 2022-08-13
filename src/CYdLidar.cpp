@@ -474,10 +474,6 @@ bool CYdLidar::turnOn()
 
   m_PointTime = lidarPtr->getPointTime();
 
-  // //获取强度标识
-  // lidarPtr->getIntensityFlag();
-
-  //计算采样率
   if (checkLidarAbnormal())
   {
     lidarPtr->stop();
@@ -631,8 +627,6 @@ bool CYdLidar::doProcessSimple(LaserScan &outscan)
     outscan.config.max_range = m_MaxRange;
     //模组编号
     outscan.moduleNum = global_nodes[0].index;
-    //环境标记
-    outscan.envFlag = global_nodes[0].is + (uint16_t(global_nodes[1].is) << 8);
     //将一圈中第一个点采集时间作为该圈数据采集时间
     if (global_nodes[0].stamp > 0)
       outscan.stamp = global_nodes[0].stamp;
@@ -885,26 +879,6 @@ void CYdLidar::enableSunNoise(bool e)
 void CYdLidar::enableGlassNoise(bool e)
 {
   m_GlassNoise = e;
-}
-
-bool CYdLidar::getUserVersion(std::string &version)
-{
-    if (!checkHardware())
-    {
-        printf("[YDLIDAR] Device is not open!\n");
-        return false;
-    }
-
-    size_t count = ydlidar::YDlidarDriver::MAX_SCAN_NODES;
-    result_t op_result = lidarPtr->grabScanData(global_nodes, count);
-    if (IS_OK(op_result) && count > 2)
-    {
-        uint8_t userVerion = global_nodes[USERVERSIONNDEX].debugInfo;
-        version = std::to_string(userVerion & 0xc0) + "." + std::to_string(userVerion & 0x3f);
-        return true;
-    }
-
-    return false;
 }
 
 /*-------------------------------------------------------------

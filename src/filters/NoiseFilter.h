@@ -19,10 +19,9 @@ public:
     enum FilterStrategy
     {
         FS_Normal, //滤噪
-        FS_Tail, //旧拖尾滤波
+        FS_Tail, //拖尾滤波
         FS_TailStrong, //拖尾滤波
         FS_TailWeek, //拖尾滤波
-        FS_TailStrong2, //拖尾滤波
     };
 public:
     NoiseFilter();
