@@ -105,11 +105,10 @@ typedef struct  {
 
 typedef struct {
   /// System time when first range was measured in nanoseconds
-  uint64_t stamp = 0;
+  uint64_t stamp;
   /// Array of lidar points
   std::vector<LaserPoint> points;
   /// Configuration of scan
   LaserConfig config;
-  int moduleNum = 0;
-  uint16_t envFlag = 0; //环境标记（目前只针对GS2）
+  int moduleNum;
 } LaserScan;

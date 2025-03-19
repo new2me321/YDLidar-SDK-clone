@@ -237,17 +237,16 @@ int main(int argc, char *argv[])
   {
     if (laser.doProcessSimple(scan))
     {
-      printf("[%lu] points module num [%d] env flag [0x%04X]\n",
+      printf("Scan received [%lu] points module num [%d]\n",
              scan.points.size(),
-             scan.moduleNum,
-             scan.envFlag);
+             scan.moduleNum);
 
       // for (size_t i = 0; i < scan.points.size(); ++i)
       // {
       //   const LaserPoint &p = scan.points.at(i);
       //   printf("%lu a %.01f r %.01f\n", i, p.angle * 180.0f / M_PI, p.range * 1000.0f);
       // }
-      fflush(stdout);
+      // fflush(stdout);
     }
     else
     {

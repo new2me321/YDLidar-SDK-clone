@@ -247,10 +247,6 @@ int main(int argc, char *argv[]) {
   /// unit: Hz
   laser.setlidaropt(LidarPropScanFrequency, &frequency, sizeof(float));
 
-  //禁用阳光玻璃过滤
-  laser.enableGlassNoise(false);
-  laser.enableSunNoise(false);
-
   bool ret = laser.initialize();
   if (!ret) {
     fprintf(stderr, "Fail to initialize %s\n", laser.DescribeError());
@@ -265,22 +261,13 @@ int main(int argc, char *argv[]) {
     return -1;
   }
 
-  //获取用户版本
-  if (ret && ydlidar::os_isOk())
-  {
-    std::string userVersion;
-    if (laser.getUserVersion(userVersion))
-    {
-      printf("[YDLIDAR]: User version %s\n", userVersion.c_str());
-    }
-  }
-
   LaserScan scan;
   while (ydlidar::os_isOk())
   {
       if (laser.doProcessSimple(scan))
       {
-          printf("Scan received %u points is [%f]Hz\n",
+          printf("Scan received at [%lu] %u points is [%f]Hz\n",
+                 scan.stamp / 1000000,
                  (unsigned int)scan.points.size(),
                  1.0 / scan.config.scan_time);
 //          for (size_t i=0; i<scan.points.size(); ++i)
